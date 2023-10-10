@@ -1,0 +1,20 @@
+<!--
+    Strips the API path and injects actual backend path, retaining the operations path. Placed on API level.
+-->
+<policies>
+    <inbound>
+        <base />
+        <rewrite-uri template="@{
+            return "/api/v1/context/actions" + context.Request.OriginalUrl.Path.Replace(context.Api.Path, string.Empty);
+            }" />
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
